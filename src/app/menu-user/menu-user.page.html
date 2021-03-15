@@ -1,0 +1,61 @@
+
+<ion-header class="toolbar">
+  <ion-toolbar>
+    <ion-title>
+      <strong class="Title">
+        Pasajero
+      </strong>
+      <ion-icon (click)="cerrarSesion()" name="log-out-outline" style="float: right; width: 30px; height: 30px; color: goldenrod;"></ion-icon>      
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  
+  <div class="container pt-3">
+    <h2>Mis datos Generales</h2>
+    <hr>
+
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Pedrito Perez</ion-card-title>
+      </ion-card-header>
+    
+      <ion-card-content>
+        <p style="font-size: 25px;"><span class="font-weight-bold">Direccion de Casa: Av. Lopez Mateos</span></p>
+      </ion-card-content>
+    </ion-card>
+
+  </div>
+  <div class="container">
+    <h2 class="text-center py-2">Registre los datos de su viaje</h2>
+
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3703.4765115016357!2d-102.35543688574006!3d21.839148164996015!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8429eb8c66ba4c57%3A0x800a85fa04315af2!2sUniversidad%20Tecnol%C3%B3gica%20de%20Aguascalientes!5e0!3m2!1ses!2smx!4v1615588712042!5m2!1ses!2smx" width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy" id="mapUTA"></iframe>
+  </div>
+
+  <div class="container">
+    <form>
+      <ion-item>
+        <ion-label position="stacked">Origen:</ion-label>
+        <ion-input>Universidad Tecnológica de Aguascalientes</ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Destino:</ion-label>
+        <ion-input></ion-input>
+      </ion-item>
+      
+      <ion-item>
+        <ion-label position="floating">Ubicación del condcutor:</ion-label>
+        <ion-input></ion-input>
+      </ion-item>
+
+      <div class="buttons">
+        <ion-button class="col-6" color="success" (click)="pedir()">Pedir Raí</ion-button>
+      </div>
+    </form>
+  </div>
+
+  <hr>
+  
+</ion-content>
+

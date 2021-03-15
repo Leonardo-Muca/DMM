@@ -1,0 +1,48 @@
+<ion-header class="toolbar">
+  <ion-toolbar>
+    <ion-title class="Title">Altas de reportes</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ioncontent">
+
+  <ion-card style="--ion-background-color: rgba(0, 6, 85, 0.712);">
+    <form #form="ngForm" ngForm="form" (ngSubmit)="guardar(form)">
+      <ion-item style="color: white; background: turquoise;">
+        <ion-label position="floating">
+          <span>Origen</span>
+        </ion-label>
+        <ion-input  type="text" required [(ngModel)]="reporte.Origen" name="Origen"></ion-input>
+      </ion-item>
+      <ion-item style="color: white; background: turquoise;">        
+        <ion-label position="floating">
+          <span>Destino</span>
+        </ion-label>        
+        <ion-input  type="text" required [(ngModel)]="reporte.Destino" name="Destino"></ion-input>
+      </ion-item>           
+      <ion-item style="color: white; background: turquoise;">        
+        <ion-label position="floating">
+          <span>Duración</span>
+        </ion-label>        
+        <ion-input  type="text" required [(ngModel)]="reporte.Duracion" name="Duracion"></ion-input>
+      </ion-item>           
+      <ion-item style="color: white; background: turquoise;">        
+        <ion-label position="floating" style="margin: 10px;">
+          <span>Fecha</span>
+        </ion-label>        
+        <ion-input  type="date" required [(ngModel)]="reporte.Fecha" name="Fecha"></ion-input>
+      </ion-item>           
+                
+      <div style="display: flex; justify-content: center; text-align: center;">
+        <div class="margin">                    
+          <ion-label class="count">Reportes: <ion-badge slot="end">{{ rep }}</ion-badge></ion-label>
+        </div>
+      </div>
+      <div style="display: flex; justify-content: center; margin: 20px;">
+        <ion-button type="submit">Registrar</ion-button>
+        <ion-button (click)="regresar()" color="tertiary">Regresar</ion-button>
+      </div>
+    </form>
+  </ion-card>
+
+</ion-content>
