@@ -10,6 +10,7 @@ export class ServiceService {
 
   usuarios: any;
   urlUser = 'http://localhost:3000/api/usuarios'; 
+  urlLogin = 'http://localhost:3000/api/login'
  
   
   getUsuarios(){
@@ -25,6 +26,10 @@ export class ServiceService {
   altaUser(usuario){
     return this.http.post(this.urlUser, usuario).toPromise();
 
+  }
+
+  login(usuario){
+    return this.http.post(this.urlLogin,usuario).toPromise();
   }
 
 }

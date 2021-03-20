@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { Login } from '../models/login';
+import { ServiceService } from '../service/service.service';
 
 @Component({
   selector: 'app-home',
@@ -14,10 +15,12 @@ export class HomePage {
 
   usuarios: Login = new Login;
 
-  constructor(public alertController: AlertController, public router: Router) { }
+  constructor(public alertController: AlertController, public router: Router,
+    public LoginService: ServiceService) { }
 
   async logForm(usuarios) {
-    if(this.usuarios.email == null && this.usuarios.password == null){
+    
+    if(this.usuarios.strCorreo == null && this.usuarios.strPassword == null){
       const alert = await this.alertController.create({
         cssClass: 'my-custom-class',
         header: 'Error',
@@ -27,8 +30,15 @@ export class HomePage {
 
       await alert.present();
     }else{
+      // this.LoginService.login(this.usuarios).then((res:any)=>{
+      //   let nombre = res.usrDB.nombre;
+      //   console.log('Datos correctos')
+      //   localStorage.setItem('nombre', nombre);
+      // }).catch(err =>{
+      //   console.log('Error al momento del login'+err.error)
+      // })
 
-      if (this.usuarios.email == 'Admin' && this.usuarios.password == '12345') {
+      if (this.usuarios.strCorreo == 'Admin' && this.usuarios.strPassword == '12345') {
             const alert = await this.alertController.create({
               cssClass: 'my-custom-class',
               header: 'Acceso correcto',            
@@ -36,14 +46,14 @@ export class HomePage {
               buttons: ['OK']
             });
   
-            this.usuarios.password = null;        
-            this.usuarios.email = null;        
+            this.usuarios.strPassword = null;        
+            this.usuarios.strCorreo = null;        
             // this.usuarios.typeUser = null;        
             await alert.present();
             this.router.navigate(['/tab1-admin'])
         }
       }
-        if(this.usuarios.email == 'User' && this.usuarios.password == '12345'){
+        if(this.usuarios.strCorreo == 'User' && this.usuarios.strPassword == '12345'){
           {
             const alert = await this.alertController.create({
               cssClass: 'my-custom-class',
@@ -54,14 +64,14 @@ export class HomePage {
   
             await alert.present();
           }
-          this.usuarios.password = null;        
-          this.usuarios.email = null;        
+          this.usuarios.strPassword = null;        
+          this.usuarios.strCorreo = null;        
           // this.usuarios.typeUser = null;        
           this.router.navigate(['/menu-user'])
         }
   
   
-        if(this.usuarios.email == 'Chofer' && this.usuarios.password == '12345'){
+        if(this.usuarios.strCorreo == 'Chofer' && this.usuarios.strPassword == '12345'){
           {
             const alert = await this.alertController.create({
               cssClass: 'my-custom-class',
@@ -72,8 +82,8 @@ export class HomePage {
   
             await alert.present();
           }
-          this.usuarios.password = null;        
-          this.usuarios.email = null;        
+          this.usuarios.strPassword = null;        
+          this.usuarios.strCorreo = null;        
           // this.usuarios.typeUser = null;   
           this.router.navigate(['/tab1'])     
         

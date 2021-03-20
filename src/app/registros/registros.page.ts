@@ -35,21 +35,21 @@ export class RegistrosPage implements OnInit {
 
   async guardar(model){
     let usuarios = {
-      "email": this.model.email,
-      "password": this.model.password,
-      "type": this.model.typeUser      
+      "strCorreo": this.model.strCorreo,
+      "strPassword": this.model.strPassword,
+      "type": this.model.tipo      
     }; 
-    console.log(this.model.email);
+    console.log(this.model.strCorreo);
     
 
-    if(this.model.email != undefined && this.model.email != '', this.model.password != undefined && this.model.password != '', this.model.typeUser != undefined && this.model.typeUser != ''){
+    if(this.model.strCorreo != undefined && this.model.strCorreo != '', this.model.strPassword != undefined && this.model.strPassword != '', this.model.tipo != undefined && this.model.tipo != ''){
 
-      if(this.model.typeUser === 'admin'){
+      if(this.model.tipo === 'admin'){
         this.arrayAdmin.push(usuarios);    
         this.admin ++;
-        this.model.email = null;
-        this.model.password = null;
-        this.model.typeUser = null;
+        this.model.strCorreo = null;
+        this.model.strPassword = null;
+        this.model.tipo = null;
         console.log(this.arrayAdmin, this.admin);      
         const alert = await this.alertController.create({
           cssClass: 'my-custom-class',
@@ -60,12 +60,12 @@ export class RegistrosPage implements OnInit {
         await alert.present();
       }
   
-      if(this.model.typeUser === 'chof'){
+      if(this.model.tipo === 'chof'){
         this.arrayChof.push(usuarios);    
         this.chof ++;
-        this.model.email = null;
-        this.model.password = null;
-        this.model.typeUser = null;
+        this.model.strCorreo = null;
+        this.model.strPassword = null;
+        this.model.tipo = null;
         console.log(this.arrayChof, this.chof);
         const alert = await this.alertController.create({
           cssClass: 'my-custom-class',
@@ -76,12 +76,12 @@ export class RegistrosPage implements OnInit {
         await alert.present();
       }
   
-      if(this.model.typeUser === 'user'){
+      if(this.model.tipo === 'user'){
         this.arrayUser.push(usuarios);    
         this.user ++;
-        this.model.email = null;
-        this.model.password = null;
-        this.model.typeUser = null;
+        this.model.strCorreo = null;
+        this.model.strPassword = null;
+        this.model.tipo = null;
         const alert = await this.alertController.create({
           cssClass: 'my-custom-class',
           header: 'Regsitro',            

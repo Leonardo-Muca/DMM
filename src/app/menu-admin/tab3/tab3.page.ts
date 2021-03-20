@@ -14,7 +14,8 @@ usu = {
   strDireccion: null,
   nmbEdad: null,
   arrTelefonos: null,
-  strCorreo: null
+  strCorreo: null,
+  tipo:null
 }
 
   constructor(public router: Router,
