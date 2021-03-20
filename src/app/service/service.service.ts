@@ -9,10 +9,11 @@ export class ServiceService {
   constructor(public http: HttpClient) { }
 
   usuarios: any;
-  url = 'http://localhost:3000/api/libros'; 
+  urlUser = 'http://localhost:3000/api/usuarios'; 
+ 
   
   getUsuarios(){
-    this.http.get(`${this.url}`).subscribe((data:any) => {
+    this.http.get(`${this.urlUser}`).subscribe((data:any) => {
       this.usuarios = data;
       return data;
     },
@@ -21,5 +22,9 @@ export class ServiceService {
     });    
   }
 
+  altaUser(usuario){
+    return this.http.post(this.urlUser, usuario).toPromise();
+
+  }
 
 }

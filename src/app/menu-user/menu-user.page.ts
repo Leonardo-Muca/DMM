@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { ServiceService } from '../service/service.service';
 
 
 @Component({
@@ -10,7 +11,8 @@ import { AlertController } from '@ionic/angular';
 })
 export class MenuUserPage implements OnInit {
 
-  constructor(public alertController: AlertController, public router: Router) { }
+  constructor(public alertController: AlertController, public router: Router
+    , public UsuariosService: ServiceService) { }
  
   async pedir() {
     const alert = await this.alertController.create({
@@ -38,6 +40,8 @@ export class MenuUserPage implements OnInit {
   }
   ngOnInit() {
   }
+
+ 
 
   cerrarSesion(){
     this.router.navigate(['/home']);

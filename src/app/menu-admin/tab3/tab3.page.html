@@ -1,31 +1,71 @@
 <ion-header class="toolbar">
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tab1-admin"></ion-back-button> 
+    </ion-buttons>
     <ion-title>
       <strong class="Title">
         Admin
       </strong>
+      
       <ion-icon (click)="cerrarSesion()" name="log-out-outline" style="float: right; width: 30px; height: 30px; color: goldenrod;"></ion-icon>      
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Registro de Usuarios</ion-title>
+    </ion-toolbar>
+  </ion-header>
 
-  <ion-tabs>
-    <ion-tab-bar slot="bottom">
-      <ion-tab-button (click)="Tab1()">              
-        <ion-label><ion-icon name="earth-outline" style="width: 30px; height: 30px;"></ion-icon></ion-label>                      
-      </ion-tab-button>
+  <div class="container">
+    <h2 class="text-center">Registrar un nuevo Usuario</h2>
+    <form (ngSubmit)="altaUser(forma)" #forma="ngForm">
+  <ion-item>
+    <ion-label position="floating">Nombre</ion-label>
+    <ion-input [(ngModel)]="usu.strNombre" name="strNombre" type="text"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Contraseña</ion-label>
+    <ion-input [(ngModel)]="usu.strPassword" name="strPassword" type="text"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Correo</ion-label>
+    <ion-input [(ngModel)]="usu.strCorreo" name="strCorreo" type="email"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Direccion</ion-label>
+    <ion-input [(ngModel)]="usu.strDireccion" name="strDireccion" type="text"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Edad</ion-label>
+    <ion-input [(ngModel)]="usu.nmbEdad" name="nmbEdad" type="number"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Telefonos</ion-label>
+    <ion-input [(ngModel)]="usu.arrTelefonos" name="arrTelefonos" type="number"></ion-input>
+  </ion-item>
+  <ion-button class="mt-3" expand="block" fill="outline" type="submit" >Registrar Usuario</ion-button>
+    </form>
+  </div>
   
-      <ion-tab-button (click)="Tab2()">              
-        <ion-label><ion-icon name="car-sport-outline" style="width: 30px; height: 30px;"></ion-icon></ion-label>
-      </ion-tab-button>
-  
-      <ion-tab-button (click)="Tab3()">    
-        <ion-label><ion-icon name="book-outline" style="width: 30px; height: 30px;"></ion-icon></ion-label>
-      </ion-tab-button>
-      
-    </ion-tab-bar>
-  </ion-tabs>  
+  <div class="container pt-3">
+    <h2>Información de los Usuarios:</h2>
+    
+    <hr>
+
+    <ion-card *ngFor="let user of service.usuarios">
+      <ion-card-header>
+        <ion-card-title>Nombre: {{user.strNombre}} <br> Contraseña: {{user.strPassword}}</ion-card-title>
+      </ion-card-header>
+    
+      <ion-card-content>
+        <p style="font-size: 25px;"><span class="font-weight-bold">Correo: </span>{{user.strCorreo}}</p>
+      </ion-card-content>
+    </ion-card>
+
+  </div> 
 
 </ion-content>
