@@ -5,13 +5,17 @@ import { HttpClient } from '@angular/common/http'
   providedIn: 'root'
 })
 export class ServiceService {
-
-  constructor(public http: HttpClient) { }
-
   usuarios: any;
   urlUser = 'http://localhost:3000/api/usuarios'; 
   urlLogin = 'http://localhost:3000/api/login'
- 
+  urlBase = 'http://localhost:3000/api/choferCarros/';
+  choferCarros: any;
+
+  constructor(public http: HttpClient) { 
+    this.choferCarros = [];
+  }
+
+  
   
   getUsuarios(){
     this.http.get(`${this.urlUser}`).subscribe((data:any) => {
@@ -30,6 +34,21 @@ export class ServiceService {
 
   login(usuario){
     return this.http.post(this.urlLogin,usuario).toPromise();
+  }
+
+  obtenerCarros(){
+    this.http.get(this.urlBase).subscribe(
+      res => {
+        this.choferCarros = res;
+        console.log('Los carros en la base de datos son:', res);
+      }, err => {
+        console.log(err);
+      }
+    )
+  }
+
+  altaCarro(coche){
+    return this.http.post(this.urlBase, coche).toPromise();
   }
 
 }

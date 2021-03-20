@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { ServiceService } from 'src/app/service/service.service';
 
 @Component({
   selector: 'app-tab2',
@@ -7,8 +8,27 @@ import { Router } from '@angular/router';
   styleUrls: ['tab2.page.scss']
 })
 export class Tab2Page {
+  coche = {
+    placasCarro: null,
+    modeloCarro: null,
+    yearCarro: null,
+    colorCarro: null
+  }
 
-  constructor(public router: Router) {}
+  constructor(public router: Router, public choferCarrosService: ServiceService) {
+    this.choferCarrosService.obtenerCarros();
+  }
+
+  altaCoche(forma: any){
+    return this.choferCarrosService.altaCarro(this.coche).then( (res:any) => {
+      console.log(res);
+      alert(res.status);
+      forma.reset();
+    }).catch(err => {
+      console.log(err);
+      alert('Ocurrió un error')
+    })
+  }
 
   Tab1(){                
     this.router.navigate(['/tab1'])
