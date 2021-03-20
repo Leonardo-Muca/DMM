@@ -21,11 +21,11 @@
       <ion-icon name="car-sport-outline" style="color: white; width: 50px; height: 50px;"></ion-icon>
       <ion-item class="as">
         <ion-label position="floating">Correo electrónico:</ion-label>
-        <ion-input [(ngModel)]="usuarios.strCorreo"></ion-input>
+        <ion-input name="strCorreo" [(ngModel)]="usuarios.strCorreo"></ion-input>
       </ion-item>
       <ion-item class="as">
         <ion-label position="floating">Contraseña:</ion-label>
-        <ion-input type="password" [(ngModel)]="usuarios.strPassword"></ion-input>
+        <ion-input type="password" name="strPassword" [(ngModel)]="usuarios.strPassword"></ion-input>
       </ion-item>
   
       <ion-button expand="block" color="dark" (click)="logForm(usuarios)">Iniciar sesión</ion-button>

@@ -35,7 +35,7 @@ export class HomePage {
       //   console.log('Datos correctos')
       //   localStorage.setItem('nombre', nombre);
       // }).catch(err =>{
-      //   console.log('Error al momento del login'+err.error)
+      //   console.log('Error al momento del login'+ err)
       // })
 
       if (this.usuarios.strCorreo == 'Admin' && this.usuarios.strPassword == '12345') {
