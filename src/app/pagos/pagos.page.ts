@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { Login, Pagos } from '../models/login';
+import ServiceService from '../service/service.service';
 
 @Component({
   selector: 'app-pagos',
@@ -10,36 +12,36 @@ import { Login, Pagos } from '../models/login';
 })
 export class PagosPage implements OnInit {
 
-  constructor(public alertController: AlertController, public router: Router) {
-    this.arrayEfectivo = []
-    this.arrayTarjeta = []    
+  constructor(public alertController: AlertController, public router: Router, public srv: ServiceService) {    
    }
 
-  arrayEfectivo: any;  
-  arrayTarjeta: any;    
-  model: Pagos = new Pagos;
-  
+  pag: Pagos = new Pagos;
+  id: any;
   efect = 0;
   tarjeta = 0;
+  datos: any;
 
   ngOnInit() {
+    this.srv.getPagos().then((data:any) => {
+      this.datos = data;
+      console.log(this.datos);
+    });
   }
 
-  async guardar(model){
-    let pagos = {      
-      "cantidad": this.model.cantidad,
-      "tipoPago": this.model.tipoPago      
-    };     
-    
+  async guardar(form: NgForm){    
 
-    if(this.model.cantidad != undefined && this.model.cantidad != 0, this.model.tipoPago != undefined && this.model.tipoPago != ''){
+    if(this.pag.cantidad != undefined && this.pag.cantidad != 0, this.pag.tipoPago != undefined && this.pag.tipoPago != ''){
+      this.srv.postPagos(this.pag).subscribe(data => {              
+        this.datos = data;
+        console.log(this.datos);   
+        this.srv.getPagos().then((data:any) => {
+          this.datos = data;        
+        });        
+        this.pag.cantidad = null;
+        this.pag.tipoPago = null;
+      });      
 
-      if(this.model.tipoPago === 'efectivo'){
-        this.arrayEfectivo.push(pagos);    
-        this.efect ++;        
-        this.model.cantidad = 0;
-        this.model.tipoPago = null;
-        console.log(this.arrayEfectivo, this.efect);      
+      if(this.pag.tipoPago === 'efectivo'){
         const alert = await this.alertController.create({
           cssClass: 'my-custom-class',
           header: 'Regsitro',            
@@ -47,14 +49,10 @@ export class PagosPage implements OnInit {
           buttons: ['OK']
         });
         await alert.present();
+        this.efect ++;
       }
   
-      if(this.model.tipoPago === 'tarjeta'){
-        this.arrayTarjeta.push(pagos);    
-        this.tarjeta ++;        
-        this.model.cantidad = 0;
-        this.model.tipoPago = null;
-        console.log(this.arrayTarjeta, this.tarjeta);
+      if(this.pag.tipoPago === 'tarjeta'){
         const alert = await this.alertController.create({
           cssClass: 'my-custom-class',
           header: 'Regsitro',            
@@ -62,6 +60,7 @@ export class PagosPage implements OnInit {
           buttons: ['OK']
         });
         await alert.present();
+        this.tarjeta ++;
       }
         
     }else{
@@ -75,8 +74,46 @@ export class PagosPage implements OnInit {
     }
   }
 
+
+  async eliminar(){
+    if(this.id == null){
+
+      const alert = await this.alertController.create({
+        cssClass: 'my-custom-class',
+        header: 'Mensaje',            
+        message: 'Selecciona un "id" para poder realizar cambios',
+        buttons: ['OK']
+      });
+      await alert.present();
+
+    }else{
+      this.srv.deletePagos(this.id).subscribe((data:any) => {
+        this.pag = data;
+        console.log(this.pag);        
+        this.srv.getPagos().then((data:any) => {
+          this.datos = data;          
+        });
+      });
+
+    }
+  }
+
+
+  async select(idPago: string){
+    this.id = idPago;
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Mensaje',            
+      message: 'ID seleccionado',
+      buttons: ['OK']
+    });
+    await alert.present();
+    console.log(this.id);    
+  }
+
+
   regresar(){
-    this.router.navigate(['/menu-admin']);  
+    this.router.navigate(['/tab1-admin']);  
   }
 
 

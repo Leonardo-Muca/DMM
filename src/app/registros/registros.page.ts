@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { Login } from '../models/login';
-import { ServiceService } from '../service/service.service';
+import ServiceService from '../service/service.service';
 
 @Component({
   selector: 'app-registros',
@@ -44,7 +44,7 @@ export class RegistrosPage implements OnInit {
 
     if(this.model.strCorreo != undefined && this.model.strCorreo != '', this.model.strPassword != undefined && this.model.strPassword != '', this.model.tipo != undefined && this.model.tipo != ''){
 
-      if(this.model.tipo === 'admin'){
+      if(this.model.tipo === 'Administrador'){
         this.arrayAdmin.push(usuarios);    
         this.admin ++;
         this.model.strCorreo = null;
@@ -60,7 +60,7 @@ export class RegistrosPage implements OnInit {
         await alert.present();
       }
   
-      if(this.model.tipo === 'chof'){
+      if(this.model.tipo === 'Chofer'){
         this.arrayChof.push(usuarios);    
         this.chof ++;
         this.model.strCorreo = null;
@@ -76,7 +76,7 @@ export class RegistrosPage implements OnInit {
         await alert.present();
       }
   
-      if(this.model.tipo === 'user'){
+      if(this.model.tipo === 'Usuario'){
         this.arrayUser.push(usuarios);    
         this.user ++;
         this.model.strCorreo = null;

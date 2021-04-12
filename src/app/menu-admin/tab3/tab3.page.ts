@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { ServiceService } from 'src/app/service/service.service';
+import { AlertController } from '@ionic/angular';
+import ServiceService from 'src/app/service/service.service';
 
 @Component({
   selector: 'app-tab3',
@@ -9,6 +10,7 @@ import { ServiceService } from 'src/app/service/service.service';
 })
 export class Tab3PageAdmin {
 usu = {
+  _id:null,
   strNombre: null,
   strPassword: null,
   strDireccion: null,
@@ -19,19 +21,62 @@ usu = {
 }
 
   constructor(public router: Router,
-    public service: ServiceService) {
+    public service: ServiceService,
+    private alertController: AlertController) {
       this.service.getUsuarios();
     }
 
 altaUser(forma:any){
-  this.service.altaUser(this.usu).then((res:any)=>{
-    console.log(res);
-    alert('Usuario Insertado con exito');
-    this.service.getUsuarios();
-  }).catch(err => {
-    console.log(err);
-    alert('A ocurrido un error al momento de insertar el usuario');
-  })
+  if(this.usu._id==null){
+    this.service.altaUser(this.usu).then(async(res:any)=>{
+      console.log(res);
+      const alert = await this.alertController.create({
+        cssClass: 'my-custom-class',
+        header: 'Success',            
+      message: 'Usuario registrado con exito',
+        buttons: ['OK']
+      });    
+      await alert.present();
+      this.service.getUsuarios();
+    }).catch(async err => {
+      console.log(err);
+      const alert = await this.alertController.create({
+        cssClass: 'my-custom-class',
+        header: 'Error',            
+      message: err,
+        buttons: ['OK']
+      });    
+      await alert.present();
+    })
+  }else{
+    this.service.modificarUser(this.usu).then(async(res:any)=>{
+      const alert = await this.alertController.create({
+        cssClass: 'my-custom-class',
+        header: 'Success',            
+      message: 'Usuario modificado con exito',
+        buttons: ['OK']
+      });    
+      await alert.present();
+      forma.reset();
+      console.log(res);
+      this.service.getUsuarios()
+    }).catch(async err =>{
+      console.log(err);
+      const alert = await this.alertController.create({
+        cssClass: 'my-custom-class',
+        header: 'Error',            
+      message: err,
+        buttons: ['OK']
+      });    
+      await alert.present();
+      
+    })
+  }
+  
+}
+
+editar(usuario:any){
+  this.usu = usuario
 }
 
   Tab1(){                
@@ -42,7 +87,6 @@ altaUser(forma:any){
     this.router.navigate(['/tab2-admin'])
   }
 
-
   Tab3(){
     this.router.navigate(['/tab3-admin'])
   }
@@ -50,6 +94,5 @@ altaUser(forma:any){
   cerrarSesion(){
     this.router.navigate(['/home']);
   }
-
 
 }

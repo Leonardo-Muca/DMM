@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { Reportes } from '../models/login';
+import ServiceService from '../service/service.service';
+
 
 @Component({
   selector: 'app-reportes',
@@ -10,58 +13,114 @@ import { Reportes } from '../models/login';
 })
 export class ReportesPage implements OnInit {
 
-  constructor(public router: Router, public alertController: AlertController) { 
-    this.arrayReporte = [];
+  constructor(public router: Router, public alertController: AlertController, public srv: ServiceService) {     
   }
 
-  arrayReporte: any;    
-  reporte: Reportes = new Reportes;
-    
-  rep = 0;
-
-  ngOnInit() {
+  reporte: any;
+  id: any;
+  repo: Reportes = new Reportes;
+  
+  ngOnInit() {           
+    this.srv.getReportes().then((data:any) => {
+      this.reporte = data;
+      console.log(this.reporte);
+    });
   }
 
 
-  async guardar(form){
-
-    let reportes = {
-      "origen": this.reporte.Origen,
-      "destino": this.reporte.Destino,
-      "duracion": this.reporte.Duracion,
-      "fecha": this.reporte.Fecha      
-    };     
-    
-
-    if(this.reporte.Origen != undefined && this.reporte.Origen != '', this.reporte.Destino != undefined && this.reporte.Destino != '', this.reporte.Duracion != undefined && this.reporte.Duracion != '', this.reporte.Fecha != undefined){
-      
-        const alert = await this.alertController.create({
-          cssClass: 'my-custom-class',
-          header: 'Regsitro',            
-          message: 'Se registró el reporte',
-          buttons: ['OK']
-        });
-        await alert.present();
-                
-        this.reporte.Origen = null;
-        this.reporte.Destino = null;
-        this.reporte.Duracion = null;
-        this.reporte.Fecha = null;
-
-        this.arrayReporte.push(reportes);    
-        this.rep ++;
-
-        console.log(this.arrayReporte);
-
-    }else{
+  async registrarReporte(form: NgForm){      
+    if(this.repo.origen == null, this.repo.destino == null, this.repo.duracion == null){
       const alert = await this.alertController.create({
         cssClass: 'my-custom-class',
-        header: 'Mensaje',            
-        message: 'Faltan datos',
+        header: 'Mensaje',
+        message: 'Agregue información a todos los inputs antes de continuar',
         buttons: ['OK']
       });
       await alert.present();
+    }else{
+
+      if(this.repo.origen == "", this.repo.destino == "", this.repo.duracion == ""){
+        const alert = await this.alertController.create({
+          cssClass: 'my-custom-class',
+          header: 'Mensaje',            
+          message: 'Para volver a dar de alta un reporte agregue información',
+          buttons: ['OK']
+        });
+        await alert.present();
+      }else{        
+        this.srv.postReportes(this.repo).subscribe(data => {              
+          console.log(data);           
+          this.srv.getReportes().then((data:any) => {
+            this.reporte = data;            
+          });
+        });
+        this.repo.destino = this.repo.origen = this.repo.duracion = this.repo.fecha = null;        
+
+      }
+    }  
+  }
+
+  async editar(form: NgForm){
+    if(this.id == null){
+
+      const alert = await this.alertController.create({
+        cssClass: 'my-custom-class',
+        header: 'Mensaje',            
+        message: 'Selecciona un "id" para poder realizar cambios',
+        buttons: ['OK']
+      });
+      await alert.present();
+
+    }else{
+
+      this.srv.putReportes(this.repo, this.id).subscribe((data:any) => {
+        this.repo = data;
+        console.log(this.repo);
+        this.srv.getReportes().then((data:any) => {
+          this.reporte = data;            
+          this.repo.destino = this.repo.origen = this.repo.duracion = this.repo.fecha = null;   
+        });
+      })
+
     }
+  }
+
+
+  async eliminar(){
+    if(this.id == null){
+
+      const alert = await this.alertController.create({
+        cssClass: 'my-custom-class',
+        header: 'Mensaje',            
+        message: 'Selecciona un "id" para poder realizar cambios',
+        buttons: ['OK']
+      });
+      await alert.present();
+
+    }else{
+
+      this.srv.deleteReportes(this.id).subscribe((data:any) => {
+        this.repo = data;
+        console.log(this.repo);
+        this.srv.getReportes().then((data:any) => {
+          this.reporte = data;            
+        });
+      })
+
+    }
+  }
+
+  async select(idReporte: string){
+    this.id = idReporte;
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Mensaje',            
+      message: 'ID seleccionado',
+      buttons: ['OK']
+    });
+    await alert.present();
+    console.log(this.id);
+    console.log(this.repo);
   }
 
   regresar(){

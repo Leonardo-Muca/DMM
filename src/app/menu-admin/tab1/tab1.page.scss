@@ -30,9 +30,25 @@
     height: 450px;
 }
 
-// .ioncontent{
-//     --background: url(../../assets/fondoApp6.jpg) 0 0/100% 100% no-repeat;
-// }
+.fondo4{        
+    --ion-background-color: rgba(50, 1, 78, 0.712);    
+    padding: 1px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    height: 450px;
+}
+
+.fondo5{        
+    --ion-background-color: rgba(78, 66, 1, 0.712);    
+    padding: 1px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    height: 450px;
+}
+
+.ioncontent{
+     --background: url(../../../assets/fondoApp6.jpg);     
+}
 
 .titleCard{
     color: white;
@@ -55,10 +71,10 @@
     align-items: center;
     display: flex;
     color: white;
-    background-color: rgb(26, 0, 121);
-    -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
-    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    background-color: rgb(56, 55, 58);
+    //-webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    //-moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    //box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
 }
 
 .divConteiner2{

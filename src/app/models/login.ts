@@ -11,8 +11,18 @@ export class Pagos{
 }
 
 export class Reportes{
-    Origen: String;
-    Destino: String;
-    Duracion: String; 
-    Fecha: Date;
+    origen: String;
+    destino: String;
+    duracion: String; 
+    fecha: Date;
+}
+
+export class Usuarios{
+    strNombre: String;
+    strPassword: String;
+    strDireccion: String;
+    nmbEdad: Number;
+    arrTelefonos: Number;
+    strCorreo: String;
+    tipo: String;
 }

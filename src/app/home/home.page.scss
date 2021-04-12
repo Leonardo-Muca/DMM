@@ -37,7 +37,12 @@
 }
 
 .background{
-  --background: url(../../assets/paris.jpg) 0 0/100% 100% no-repeat;    
+  // --background: url(../../assets/paris.jpg) 0 0/100% 100% no-repeat;    
+  // gradient(150deg, rgba(0,0,0,1) 0%, rgba(62,62,62,1) 58%, rgba(177,177,177,1) 100%); 
+
+  // --background: #000000;
+
+  // --background: linear-gradient(180deg, #000000 0%, #1f2023 50%, #8c8c8c 100%);
 }
 
 .as{

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { ServiceService } from 'src/app/service/service.service';
+import ServiceService from 'src/app/service/service.service';
 
 @Component({
   selector: 'app-tab1',
@@ -29,6 +29,10 @@ export class Tab1PageAdmin {
 
   reportes(){
     this.router.navigate(['/reportes']);
+  }
+
+  admin(){
+    this.router.navigate(['/administrador']);
   }
 
   async detalleReporte(){
@@ -61,10 +65,32 @@ export class Tab1PageAdmin {
     await alert.present();
   }
 
-  cerrarSesion(){
-    this.router.navigate(['/home']);
+  async cerrarSesion(){
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Cerrar Sesion',            
+      message: '¿Estas seguro de Cerrar Sesion?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+           
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Okay',
+          handler: () => {
+            this.router.navigate(['/home']);
+            console.log('Confirm Okay');
+          }
+        }
+      ]
+    });    
+    await alert.present();
+    
   }
-
   Tab1(){                
     this.router.navigate(['/tab1-admin'])
   }

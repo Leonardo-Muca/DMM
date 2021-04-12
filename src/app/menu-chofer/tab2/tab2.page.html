@@ -39,9 +39,24 @@
         <ion-input [(ngModel)]="coche.colorCarro" name="colorCarro"></ion-input>
       </ion-item>
 
+      <ion-item class="text">
+        <ion-label>Lista de choferes</ion-label>
+        <ion-select [(ngModel)]="coche.idChofer" placeholder="Select" name="tipo">
+          <ion-select-option *ngFor="let chofer of choferCarrosService.choferes" value="{{chofer._id}}">{{chofer.strNombre}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
       <ion-button class="mt-3" expand="block" fill="outline" type="submit">Registrar carro</ion-button>
+
     </form>
   </div>
+
+  <ion-item class="text">
+    <ion-label>Lista de choferes</ion-label>
+    <ion-select (ionChange)="obtenerCarrosChofer()" [(ngModel)]="choferFiltro" placeholder="Select" name="tipo">
+      <ion-select-option *ngFor="let chofer of choferCarrosService.choferes" value="{{chofer._id}}">{{chofer.strNombre}}</ion-select-option>
+    </ion-select>
+  </ion-item>
 
   <div class="container pt-3">
     <h2>Información de mi coche:</h2>

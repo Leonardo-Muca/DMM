@@ -50,6 +50,18 @@ const routes: Routes = [
   {
     path: 'tab3-admin',
     loadChildren: () => import('./menu-admin/tab3/tab3.module').then( m => m.Tab3PageModule)
+  },
+  {
+    path: 'regusu',
+    loadChildren: () => import('./regusu/regusu/regusu.module').then( m => m.RegusuPageModule)
+  },
+  {
+    path: 'administrador',
+    loadChildren: () => import('./administrador/administrador.module').then( m => m.AdministradorPageModule)
+  },
+  {
+    path: 'viajes',
+    loadChildren: () => import('./viajes/viajes/viajes.module').then( m => m.ViajesPageModule)
   }
 ];
 

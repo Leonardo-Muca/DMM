@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { ServiceService } from 'src/app/service/service.service';
+import { AlertController } from '@ionic/angular';
+import ServiceService from 'src/app/service/service.service';
+
 
 @Component({
   selector: 'app-tab2',
@@ -8,25 +10,51 @@ import { ServiceService } from 'src/app/service/service.service';
   styleUrls: ['tab2.page.scss']
 })
 export class Tab2Page {
+
+  choferFiltro = '';
+
   coche = {
+    idChofer: null,
     placasCarro: null,
     modeloCarro: null,
     yearCarro: null,
     colorCarro: null
   }
 
-  constructor(public router: Router, public choferCarrosService: ServiceService) {
-    this.choferCarrosService.obtenerCarros();
+  constructor(public router: Router, public choferCarrosService: ServiceService,
+    public alertController: AlertController) {
+    // this.choferCarrosService.obtenerCarros();
+    this.choferCarrosService.getUsuarios();
+  }
+
+  obtenerCarrosChofer(){
+    let body = {
+      idChofer: this.choferFiltro
+    }
+    this.choferCarrosService.filtroCarro(body);
   }
 
   altaCoche(forma: any){
-    return this.choferCarrosService.altaCarro(this.coche).then( (res:any) => {
+    return this.choferCarrosService.altaCarro(this.coche).then( async(res:any) => {
       console.log(res);
-      alert(res.status);
+     
+      const alert = await this.alertController.create({
+        cssClass: 'my-custom-class',
+        header: 'Success',
+        message: 'Coche Insertado con exito',
+        buttons: ['OK']
+      });
+      await alert.present();
       forma.reset();
-    }).catch(err => {
+    }).catch(async err => {
       console.log(err);
-      alert('Ocurrió un error')
+      const alert = await this.alertController.create({
+        cssClass: 'my-custom-class',
+        header: 'Error',
+        message: 'Ocurrio un error',
+        buttons: ['OK']
+      });
+      await alert.present();
     })
   }
 
